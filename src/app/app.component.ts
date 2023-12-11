@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchForm = this.initSearchForm();
+    this.searchForm.controls['cities'].setValue('LDN');
   }
 
   public initSearchForm(): UntypedFormGroup {
@@ -43,6 +44,6 @@ export class AppComponent implements OnInit {
   }
 
   public onClientIDChange(value: any) {
-    console.log(this.searchForm?.getRawValue().cities); // tôi muốn nhận giá trị 2
+    console.log(this.searchForm?.getRawValue().cities);
   }
 }

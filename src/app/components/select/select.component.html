@@ -13,6 +13,8 @@
         [virtualScrollItemSize]="virtualScrollItemSize"
         inputId="float-label"
         (onChange)="onSelectionChange($event)"
+        [autoDisplayFirst]="autoDisplayFirst"
+        [(ngModel)]="selectedValue"
       ></p-dropdown>
       <label for="float-label">{{ label }}</label>
     </span>

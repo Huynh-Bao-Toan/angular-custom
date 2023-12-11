@@ -1,8 +1,15 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
 interface DataSourceType {
-  value: string;
+  value: any;
   text: string;
 }
 
@@ -20,13 +27,35 @@ export class SelectComponent implements OnInit {
   @Input() virtualScroll: boolean = false;
   @Input() virtualScrollItemSize: number = 38;
   @Input() controlName!: string;
+  @Input() autoDisplayFirst: boolean = false;
 
   @Input() form!: FormGroup | undefined;
   @Output() valueChanged = new EventEmitter<string>(); // Sự kiện EventEmitter trả về giá trị đã chọn
 
+  selectedValue: string | null = null;
+
   constructor() {}
 
   ngOnInit() {}
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['form'] && this['form'] && this.controlName) {
+      const value = this['form'].get(this.controlName)?.value;
+      if (value !== undefined && value !== null) {
+        this.updateSelectedValue(value);
+      }
+    }
+  }
+
+  private updateSelectedValue(value: any) {
+    const selectedOption = this.dataSource?.find(
+      (option) => option.value === value
+    );
+
+    if (selectedOption) {
+      this.form?.get(this.controlName)?.setValue(selectedOption.value);
+      this.selectedValue = selectedOption;
+    }
+  }
 
   onSelectionChange(event: any) {
     if (event && event.value && event.value.value) {
