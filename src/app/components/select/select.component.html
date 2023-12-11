@@ -1,0 +1,20 @@
+<div>
+  <div class="card flex justify-content-center">
+    <span class="p-float-label">
+      <p-dropdown
+        [options]="dataSource"
+        optionLabel="text"
+        filterBy="text"
+        [showClear]="showClear"
+        [placeholder]="label"
+        [filter]="filter"
+        [disabled]="disabled"
+        [virtualScroll]="virtualScroll"
+        [virtualScrollItemSize]="virtualScrollItemSize"
+        inputId="float-label"
+        (onChange)="onSelectionChange($event)"
+      ></p-dropdown>
+      <label for="float-label">{{ label }}</label>
+    </span>
+  </div>
+</div>
